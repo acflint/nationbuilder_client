@@ -233,21 +233,16 @@ module NationbuilderClient
       access_token_getter.call
     end
 
-    # Gets Basic Auth token string
-    def basic_auth_token
-      "Basic " + ["#{username}:#{password}"].pack("m").delete("\r\n")
-    end
-
     # Returns Auth Settings hash for api client.
     def auth_settings
       {
         "BearerAuth" =>
           {
             type: "bearer",
-            in: "header",
+            in: "query",
             format: "JWT",
-            key: "Authorization",
-            value: "Bearer #{access_token_with_refresh}"
+            key: "access_token",
+            value: access_token_with_refresh
           }
       }
     end
